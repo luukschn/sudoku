@@ -1,17 +1,22 @@
 import pandas as pd
 import numpy as np
 import random
+import matplotlib as mpl
+import matplotlib.pyplot as plt
 
 
 #best to return the exact values which are not proper so i dont have to do a permutation on all of them
 #return index
 #separate function for the altering of values
 
+
+#minimum amount of squares to solve something is 17
+
 _number_array = [1,2,3,4,5,6,7,8,9]
 
 def check_row(row_number):
-
     numbers_to_check = set(S[row_number])
+    print(f"row {row_number} ntc: ", numbers_to_check)
     if not (len(numbers_to_check) == 9):
         for i in range(9):
             for j in range(9):
@@ -28,7 +33,7 @@ def check_col(col_number):
     # if len(numbers_to_check) != 9:
     #     return [y for y in range(1,10) if y not in numbers_to_check]
 
-    
+    print(f"col {col_number} ntc: ", numbers_to_check)
     if not len(numbers_to_check) == 9:
         for i in range(9):
             for j in range(9):
@@ -96,7 +101,11 @@ def check_block(row_number, col_number):
     return -1
 
 
+
 #not working well. need to tweak my algorithm
+#check the return values with as many prints as possible
+#check if the sudoku array actually changes with the input values i try to add
+#check if input values are the ones i actually want to input
 def change_row(row_number):
     row_counter = 0
     row = check_row(row_number)
@@ -117,12 +126,14 @@ def change_col(col_number):
         #print(input_value)
         #S[col_number, col[0]] = input_value[0]
         #S[col_number, col[0]] = input_value[0]
+        print("input value ", input_value)
         S[col, col_number] = input_value[0]
         return False
     # if check_block(row_number, col_number) != -1:
     #     numbers_to_check = 
     #     #change valu
     return True
+    
     
 
     
@@ -141,6 +152,9 @@ print(S)
 i = 0
 j = 0
 
+row_results = []
+col_results = []
+
 verification = False
 while verification == False:
     good_row = 0
@@ -154,7 +168,9 @@ while verification == False:
         if res_col == True:
             good_col += 1
     
-    
+    row_results.append(good_row)
+    col_results.append(good_col)
+    print(S)
 
     # for i in range(9):
     #     for j in range(9):
@@ -167,13 +183,20 @@ while verification == False:
     #             good_col += 1
             
     counter += 1
-    if counter == 100:
+    if counter == 20:
         break
     if good_row == 9 and good_col == 9:
         verification = True
 
 
-print(S)
+#evens out at 15 consistently
+plt.plot(row_results, label="row")
+plt.plot(col_results, label="col")
+plt.legend()
+plt.show()
+
+
+#print(S)
 
 #can already do machine learning on the sudokus i guess?
 #categorize how hard things are to solve
