@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-import random
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 
@@ -9,6 +8,8 @@ import matplotlib.pyplot as plt
 #return index
 #separate function for the altering of values
 
+#best to refactor all the code once its working because this is way too elaborate
+
 
 #minimum amount of squares to solve something is 17
 
@@ -16,8 +17,8 @@ _number_array = [1,2,3,4,5,6,7,8,9]
 
 def check_row(row_number):
     numbers_to_check = set(S[row_number])
-    print(f"row {row_number} ntc: ", numbers_to_check)
     if not (len(numbers_to_check) == 9):
+        print(f"row {row_number} ntc: ", numbers_to_check)
         for i in range(9):
             for j in range(9):
                 if S[row_number][i] == S[row_number][j] and i != j:
@@ -32,9 +33,10 @@ def check_col(col_number):
     #this checks the numbers. not the positions of the number
     # if len(numbers_to_check) != 9:
     #     return [y for y in range(1,10) if y not in numbers_to_check]
-
-    print(f"col {col_number} ntc: ", numbers_to_check)
+    col = [S[x][col_number] for x in range(9)]
     if not len(numbers_to_check) == 9:
+        print(f"col {col_number} itself: {col}")
+        print(f"col {col_number} ntc: ", numbers_to_check)
         for i in range(9):
             for j in range(9):
                 if S[i][col_number] == S[j][col_number] and i != j:
@@ -46,7 +48,7 @@ def check_col(col_number):
 
 #these are not proper yet
 def check_block(row_number, col_number):
-
+    #need to sort out the proper return values for this
     if row_number <= 2:
         if col_number <=2:
             numbers_to_check = set((S[0][:3], S[1][:3], S[2][:3]))
@@ -126,8 +128,10 @@ def change_col(col_number):
         #print(input_value)
         #S[col_number, col[0]] = input_value[0]
         #S[col_number, col[0]] = input_value[0]
-        print("input value ", input_value)
+        print("input value: ", input_value)
+        print("value pre: ",S[col, col_number])
         S[col, col_number] = input_value[0]
+        print("value post: ", S[col, col_number])
         return False
     # if check_block(row_number, col_number) != -1:
     #     numbers_to_check = 
@@ -155,6 +159,67 @@ j = 0
 row_results = []
 col_results = []
 
+def row_verification():
+    row_verification = False
+    while row_verification == False:
+        good_row = 0
+        for i in range(9):
+            res_row = change_row(i)
+            if res_row == True:
+                good_row += 1
+        
+        row_results.append(good_row)
+
+        if good_row == 9:
+            row_verification = True
+
+def col_verification():
+    #maybe i have to extract this from the function? -> the col_verification = true stuff and just return a value, keep going until it succeeds
+    col_verification = False
+    while col_verification == False:
+        good_col = 0
+        for i in range(9):
+            res_col = change_col(i)
+            if res_col == True:
+                good_col += 1
+            
+        col_results.append(good_col)
+
+        if col_verification == 9:
+            col_verification = True
+
+
+#somehow the program is halting after several iterations -> does not stop though, something is still looping somewhere and executing
+# verification = False
+# while verification == False:
+#     verification_verification = 0
+
+#     row_count = 0
+#     for i in range(9):
+#         if check_row(i) == -1:
+#             row_count += 1
+    
+#     col_count = 0
+#     for j in range(9):
+#         if check_col(j) == -1:
+#             col_count += 1
+    
+#     if row_count == 9:
+#         verification_verification +=1
+#     else:
+#         row_verification()
+    
+#     if col_count == 9:
+#         verification_verification +=1
+#     else:
+#         col_verification()
+
+#     if verification_verification == 2:
+#         verification = True
+    
+
+
+
 verification = False
 while verification == False:
     good_row = 0
@@ -172,15 +237,17 @@ while verification == False:
     col_results.append(good_col)
     print(S)
 
-    # for i in range(9):
-    #     for j in range(9):
-    #         res_row = change_row(i)
-    #         #count all rows and cols to see if they are all correct. otherwise start while loop over
-    #         if res_row == -1:
-    #             good_row += 1
-    #         res_col = change_col(j)
-    #         if res_col == -1:
-    #             good_col += 1
+#     for i in range(9):
+#         for j in range(9):
+#             res_row = change_row(i)
+#             #count all rows and cols to see if they are all correct. otherwise start while loop over
+#             if res_row == -1:
+#                 good_row += 1
+#             res_col = change_col(j)
+#             if res_col == -1:
+#                 good_col += 1
+
+    print("good: ", good_row, good_col)
             
     counter += 1
     if counter == 20:
