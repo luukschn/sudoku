@@ -1,14 +1,10 @@
 import numpy as np
 
 
-a = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]).reshape(3, 4)
+s = [np.random.permutation(range(1,10)).reshape(3,3) for x in range(9)]
+S = np.reshape(np.array([s[a] for a in range(len(s))]), (9,9))
 
-print(a, "\n")
+print(S)
+c = set([S[x][0] for x in range(9)])
 
-print(a[0][0])
-print(a[0, 0])
-
-a[0][0] = 10
-a[0, 1] = 20
-
-print(a)
+print(len(c))

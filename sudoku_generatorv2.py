@@ -4,11 +4,6 @@ import matplotlib.pyplot as plt
 """Minimum amount of squares to solve a sudoku is 17"""
 
 
-#TODO: first verify that my checks are working properly
-#TODO: I only return the position of the duplicate value. Program is very inefficient
-    #if i have to check whave value is duplicate as well again later. maybe return that as well
-#TODO: maybe better to just return if rows are improper. and do the checks in a
-    #different function which changes the actual values
 
 
 def verify_row(row_number):
