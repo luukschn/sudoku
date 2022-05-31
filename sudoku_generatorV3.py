@@ -6,6 +6,11 @@ from sudoku_change_values import Alteration
 
 """Minimum amount of visible squares to solve is 17"""
 
+#https://gist.github.com/1Blademaster/851a2053de929164dbda58bb0969e451#file-sudoku-py
+#https://stackoverflow.com/questions/45471152/how-to-create-a-sudoku-puzzle-in-python
+#https://www.101computing.net/sudoku-generator-algorithm/
+
+
 #setup sudoku
 s = [np.random.permutation(range(1,10)).reshape(3,3) for x in range(9)]
 S = np.reshape(np.array([s[a] for a in range(len(s))]), (9,9))
